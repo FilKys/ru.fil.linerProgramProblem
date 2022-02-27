@@ -1,4 +1,4 @@
-package ru.fil.linerProgramProblem
+package ru.fil.linerProgramProblem.services
 
 
 class WorkServices : PrintServices() {

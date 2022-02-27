@@ -1,4 +1,4 @@
-package ru.fil.linerProgramProblem
+package ru.fil.linerProgramProblem.services
 
 open class PrintServices {
 
@@ -8,17 +8,7 @@ open class PrintServices {
 
     fun printFunction(function: Function) {
         printlnStr("Function:")
-        var factorsAndX = ""
-        function.xMap?.forEach { (index, value) ->
-            factorsAndX = if (value > 0) {
-                "$factorsAndX+$value"
-            } else if (value < 0) {
-                "$factorsAndX$value"
-            } else {
-                factorsAndX
-            }
-            factorsAndX = "${factorsAndX}*X$index"
-        }
+        var factorsAndX = buildEquation(function.xMap!!)
         if (factorsAndX.first() == '+') {
             factorsAndX = factorsAndX.removeRange(0, 1)
         }
@@ -27,6 +17,14 @@ open class PrintServices {
     }
 
     fun printConfines(factorsX: MutableMap<Int, Int>, inequality: Pair<String, Int>) {
+        var factorsAndX = buildEquation(factorsX)
+        if (factorsAndX.first() == '+') {
+            factorsAndX = factorsAndX.removeRange(0, 1)
+        }
+        printlnStr("${factorsAndX.replace("1*", "")} ${inequality.first} ${inequality.second}")
+    }
+
+    private fun buildEquation(factorsX: MutableMap<Int, Int>): String {
         var factorsAndX = ""
         factorsX.forEach { (index, value) ->
             factorsAndX = if (value > 0) {
@@ -38,10 +36,7 @@ open class PrintServices {
             }
             factorsAndX = "${factorsAndX}*X$index"
         }
-        if (factorsAndX.first() == '+') {
-            factorsAndX = factorsAndX.removeRange(0, 1)
-        }
-        printlnStr("${factorsAndX.replace("1*", "")} ${inequality.first} ${inequality.second}")
+        return factorsAndX
     }
 
     fun printMenu() {
