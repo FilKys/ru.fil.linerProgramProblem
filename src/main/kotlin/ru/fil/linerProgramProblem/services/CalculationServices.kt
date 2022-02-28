@@ -1,3 +1,0 @@
-package ru.fil.linerProgramProblem.services
-
-class CalculationServices
