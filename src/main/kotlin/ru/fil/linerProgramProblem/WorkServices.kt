@@ -7,7 +7,7 @@ class WorkServices {
 
     fun work() {
         val file =
-            File("/Users/filippkusakin/IdeaProjects/linerProgramProblem/src/main/resources/test2.csv").inputStream()
+            File("/Users/filippkusakin/IdeaProjects/linerProgramProblem/src/main/resources/test3.csv").inputStream()
         val data: ArrayList<List<Int>> = arrayListOf()
         file.bufferedReader().lines().forEach { line ->
             data.add(line.split(";").map { it.toInt() })
@@ -26,7 +26,6 @@ class WorkServices {
         }
         dataPromez.maxF = maxData.map { it.second!! }
         dataPromezList.add(dataPromez)
-        printPromex(dataPromez, indexData)
         indexData++
         var newDataPromez: DataPromez
         while (indexData < data.size - 1) {
@@ -37,8 +36,12 @@ class WorkServices {
             }
             newDataPromez.maxF = maxData.map { it.second!! }
             dataPromezList.add(newDataPromez)
-            printPromex(dataPromez, indexData)
             indexData++
+        }
+        var indexData2 = 2
+        dataPromezList.forEach {
+            printPromex(it, indexData2)
+            indexData2 += 1
         }
         val max = lastCalculate(dataPromezList[dataPromezList.size - 1].maxF!!, data[indexData])
         printResult(dataPromezList, max, data[0], data.size - 1)
@@ -54,7 +57,7 @@ class WorkServices {
         var result = epsil[epsil.size - 1]
         println("---------------Result !---------------")
         println("Zmax = ${max.second}")
-        println("X*$iterX($result) = ${epsil[max.first]}")
+        println("X*$iterX($result) = ${epsil[max.first - 1]}")
         result -= epsil[max.first - 1]
         iterX--
         dataPromezList.reversed().forEach { dataPromez ->
